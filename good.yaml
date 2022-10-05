@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata: # name의 경우 고유해야 하므로 다른 사용자의 자원들과 이름이 겹쳐서는 안 됨
-  name: ZZangsangmin-dacon # "사용자명-프로젝트명" 형식으로 작성. 예시: jungin500-yolox
+  name: sangminnim-dacon # "사용자명-프로젝트명" 형식으로 작성. 예시: jungin500-yolox
 spec:
   securityContext:
     runAsUser: 0
