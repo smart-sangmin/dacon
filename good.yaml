@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata: # name의 경우 고유해야 하므로 다른 사용자의 자원들과 이름이 겹쳐서는 안 됨
-  name: sangminnim-dacon # "사용자명-프로젝트명" 형식으로 작성. 예시: jungin500-yolox
+  name: sangminnim-OCR # "사용자명-프로젝트명" 형식으로 작성. 예시: jungin500-yolox
 spec:
   securityContext:
     runAsUser: 0
@@ -20,7 +20,7 @@ spec:
 
   containers:
     - name: gpu-container
-      image: ost-hub:5000/nvidia/pytorch:22.02-py3 # 이미지 변경 (nvcr.io/nvidia/pytorch:22.02-py3 등)
+      image: ost-hub:5000/nvidia/pytorch:22.03-py3 # 이미지 변경 (nvcr.io/nvidia/pytorch:22.02-py3 등)
       volumeMounts:
         - mountPath: /dev/shm
           name: shmdir
@@ -34,10 +34,10 @@ spec:
           set -x &&
           groupadd -g 1003 lab &&
           useradd -m -d /workspace -s /bin/bash -u 1003 -g lab lab &&
-          # runuser -u lab -- git clone https://github.com/jungin500/rexnet --branch jungin500 rexnet &&
-          # cd /workspace/rexnet &&
+          runuser -u lab -- git clone https://github.com/smart-sangmin/dacon --branch jungin500 rexnet &&
+          cd /workspace/dacon &&
           runuser -u lab -- pip3 install -r requirements.txt &&
-          runuser -u lab -- python train.py --manualSeed 7 --saved_model saved_models/TPS-VGG-BiLSTM-Attn-Seed5/best_norm_ED.pth --FT --batch_size 32 --imgH 500 --imgW 160 --train_data train_lmdb_dataset --valid_data val_lmdb_dataset --num_iter 500000 --valInterval 1000 --select_data basic --batch_ratio 1.0 --batch_max_length 30 --data_filtering_off --Transformation TPS --FeatureExtraction VGG --SequenceModeling BiLSTM --Prediction Attn;
+          runuser -u lab -- ./execution.sh
 
       securityContext:
         allowPrivilegeEscalation: false
