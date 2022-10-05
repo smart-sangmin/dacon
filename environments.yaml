@@ -80,7 +80,6 @@ dependencies:
     - debugpy==1.6.3
     - decorator==5.1.1
     - diffimg==0.2.3
-    - easyocr==1.6.2
     - entrypoints==0.4
     - fire==0.4.0
     - fonttools==4.37.1
